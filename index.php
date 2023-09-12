@@ -65,7 +65,7 @@ while(true) {
         try {
             fwrite($client, '220 '.$serverHello."\n");
         } catch(Exception $e) {
-            continue;
+            break;
         }
         // Retrieve IP from connection
         $ip = explode(':', stream_socket_get_name($client, true))[0];
