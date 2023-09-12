@@ -10,7 +10,7 @@ ob_implicit_flush();
 
 $serverHello = 'fakeSMTP ESMTP PHP Mail Server Ready';
 $header = true;
-$address = 'smtp.goodsane.com'; //smtp.goodsane.com
+$address = 'localhost'; //smtp.goodsane.com
 $port = 6013;
 $ssl = openssl_get_cert_locations();
 $connect = false;
@@ -62,7 +62,11 @@ while(true) {
         $to = [];
 
         // Start TCP handshake
-        fwrite($client, '220 '.$serverHello."\n");
+        try {
+            fwrite($client, '220 '.$serverHello."\n");
+        } catch(Exception $e) {
+            continue;
+        }
         // Retrieve IP from connection
         $ip = explode(':', stream_socket_get_name($client, true))[0];
 
